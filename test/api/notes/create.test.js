@@ -38,4 +38,15 @@ describe('POST /notes', () => {
         })
         .catch((err) => done(err));
     });
+
+    it('Fail, creating a new note works', (done) => {
+        request(app).post('/notes')
+          .send({ name: 'NOTE1' })
+          .then((res) => {
+            const body = res.body;
+            expect(body.message).to.equal('Note validation failed: text: Path `text` is required.')            
+            done();
+        })
+        .catch((err) => done(err));
+    });
 })
